@@ -90,6 +90,20 @@ public class registro {
             frame.dispose();
             login.main(null);
         });
+        ImageIcon logo2 = new ImageIcon(
+                login.class.getResource("/img/logo2.png")
+        );
+
+        Image img = logo2.getImage().getScaledInstance(
+                160,
+                90,
+                Image.SCALE_SMOOTH
+        );
+
+        JLabel logoLabel = new JLabel(new ImageIcon(img));
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        logoLabel.setBounds(525, 5, 160, 90);
+        
         int offsetY = 10;
         JLabel sexoLabel = new JLabel("Sexo:");
         sexoLabel.setBounds(380, 150 + offsetY, 200, 20);
@@ -137,6 +151,7 @@ public class registro {
         card.add(emailLabel);
         card.add(emailField);
         card.add(passLabel);
+        card.add(logoLabel);
         card.add(passField);
         card.add(confirmLabel);
         card.add(confirmField);
