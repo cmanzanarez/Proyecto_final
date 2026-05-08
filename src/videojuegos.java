@@ -145,7 +145,7 @@ public class videojuegos extends JFrame {
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
         ImageIcon img3 = new ImageIcon(
-                new ImageIcon(getClass().getResource("/img/call_of_duty_black_ops_6-5892217.webp"))
+                new ImageIcon(getClass().getResource("/img/Tapa-GTA-V.jpg"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
@@ -168,8 +168,8 @@ public class videojuegos extends JFrame {
 
         Object[][] datos = {
                 { img1, "Spider-Man 2", "JUE-00064", "Videojuego", "PS5", "Ver info"},
-                { img2, "Zelda", "JUE-0024", "Videojuego", "Switch", "Ver info"},
-                { img3, "COD", "JUE-00034", "Videojuego", "PS5", "Ver info"},
+                { img2, "Zelda", "JUE-00024", "Videojuego", "Switch", "Ver info"},
+                { img3, "GTA 5", "JUE-00034", "Videojuego", "PS5", "Ver info"},
                 { img4, "Forza", "JUE-00084", "Videojuego", "Xbox", "Ver info"},
                 { img5, "Resident Evil", "JUE-00087", "Videojuego", "PS5", "Ver info"}
         };
