@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 public class peliculamas_rentada extends JFrame {
 
     public peliculamas_rentada() {
@@ -10,38 +11,47 @@ public class peliculamas_rentada extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
-
-        // BARRA LATERAL
+        // BARRA AZUL
         JPanel barraLat = new JPanel();
-        barraLat.setBackground(new Color(10, 50, 90));
+        barraLat.setBackground(new Color(0, 51, 102));
         barraLat.setBounds(0, 0, 120, 600);
         barraLat.setLayout(null);
+        ImageIcon inicioIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
 
-        JLabel inicio = new JLabel("Inicio");
-        inicio.setForeground(Color.WHITE);
-        inicio.setBounds(30, 80, 100, 30);
+        ImageIcon operacionesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
 
-        JLabel operacion = new JLabel("Operación");
-        operacion.setForeground(Color.WHITE);
-        operacion.setBounds(20, 150, 100, 30);
+        ImageIcon clientesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/material-symbols_person.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
 
-        JLabel clientes = new JLabel("Clientes");
-        clientes.setForeground(Color.WHITE);
-        clientes.setBounds(30, 220, 100, 30);
+        ImageIcon videojuegosIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/carbon_game-console.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
 
-        JLabel videojuegos = new JLabel("Videojuegos");
-        videojuegos.setForeground(Color.WHITE);
-        videojuegos.setBounds(10, 290, 100, 30);
+        ImageIcon peliculasIcono= new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+        
+        Menu(barraLat, "Inicio", 80, inicioIcono);
+        Menu(barraLat, "Operación", 150, operacionesIcono);
+        Menu(barraLat, "Clientes", 260, clientesIcono);
+        Menu(barraLat, "Videojuegos", 370, videojuegosIcono);
+        Menu(barraLat, "Peliculas", 480, peliculasIcono);
 
-        JLabel peliculas = new JLabel("Películas");
-        peliculas.setForeground(Color.WHITE);
-        peliculas.setBounds(25, 360, 100, 30);
-
-        barraLat.add(inicio);
-        barraLat.add(operacion);
-        barraLat.add(clientes);
-        barraLat.add(videojuegos);
-        barraLat.add(peliculas);
 
         // PANEL PRINCIPAL
         JPanel panel = new JPanel();
@@ -231,6 +241,58 @@ public class peliculamas_rentada extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+    }
+    
+    // MENU
+    public void Menu(JPanel panel, String texto, int y, Icon icono) {
+
+        JLabel iconLabel = new JLabel(icono);
+        iconLabel.setBounds(15, y, 25, 30);
+
+        JLabel label = new JLabel(texto);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.PLAIN, 15));
+        label.setBounds(50, y, 120, 30);
+        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        label.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+
+                JFrame ventana = null;
+
+                switch (texto) {
+
+                    case "Inicio":
+                        ventana = new principal();
+                        break;
+
+                    case "Videojuegos":
+                        ventana = new videojuegos();
+                        break;
+
+                    case "Clientes":
+                        ventana = new clientes();
+                        break;
+
+                    case "Operación":
+                        ventana = new operaciones();
+                        break;
+
+                    case "Peliculas":
+                        ventana = new peliculas();
+                        break;
+                }
+
+                if (ventana != null) {
+                    ventana.setVisible(true);
+                    dispose();
+                }
+            }
+        });
+
+        panel.add(iconLabel);
+        panel.add(label);
     }
 
     private JLabel Menu(String texto, int y) {

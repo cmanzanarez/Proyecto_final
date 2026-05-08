@@ -32,7 +32,7 @@ public class login {
 
         Border flatBorder = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY);
 
-        // CARDA
+        // CARD
         JPanel card = new JPanel(new GridBagLayout()) {
 
             protected void paintComponent(Graphics g) {

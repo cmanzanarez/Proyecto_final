@@ -22,12 +22,41 @@ public class clientes extends JFrame {
         sidebar.setLayout(null);
         add(sidebar);
 
-       
-        Menu(sidebar, "Inicio", 80);
-        Menu(sidebar, "Operación", 150);
-        Menu(sidebar, "Clientes", 260);
-        Menu(sidebar, "Videojuegos", 370);
-        Menu(sidebar, "Películas", 480);
+        ImageIcon inicioIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon operacionesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon clientesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/material-symbols_person.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon videojuegosIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/carbon_game-console.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon peliculasIcono= new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+        
+        Menu(sidebar, "Inicio", 80, inicioIcono);
+        Menu(sidebar, "Operación", 150, operacionesIcono);
+        Menu(sidebar, "Clientes", 260, clientesIcono);
+        Menu(sidebar, "Videojuegos", 370, videojuegosIcono);
+        Menu(sidebar, "Peliculas", 480, peliculasIcono);
 
         // PANEL PRINCIPAL
 
@@ -173,12 +202,15 @@ public class clientes extends JFrame {
 
     // MENUS
 
-    public void Menu(JPanel panel, String texto, int y) {
+    public void Menu(JPanel panel, String texto, int y, Icon icono) {
+
+        JLabel iconLabel = new JLabel(icono);
+        iconLabel.setBounds(15, y, 25, 30);
 
         JLabel label = new JLabel(texto);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Arial", Font.PLAIN, 15));
-        label.setBounds(35, y, 120, 30);
+        label.setBounds(50, y, 120, 30);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         label.addMouseListener(new MouseAdapter() {
@@ -204,7 +236,7 @@ public class clientes extends JFrame {
                     case "Operación":
                         ventana = new operaciones();
                         break;
-                        
+
                     case "Peliculas":
                         ventana = new peliculas();
                         break;
@@ -217,6 +249,7 @@ public class clientes extends JFrame {
             }
         });
 
+        panel.add(iconLabel);
         panel.add(label);
     }
 

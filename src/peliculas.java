@@ -21,12 +21,42 @@ public class peliculas extends JFrame {
         sidebar.setBackground(new Color(0, 51, 102));
         sidebar.setLayout(null);
         add(sidebar);
+        
+        ImageIcon inicioIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
 
-        Menu(sidebar, "Inicio", 80);
-        Menu(sidebar, "Operación", 150);
-        Menu(sidebar, "Clientes", 260);
-        Menu(sidebar, "Videojuegos", 370);
-        Menu(sidebar, "Películas", 480);
+        ImageIcon operacionesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon clientesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/material-symbols_person.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon videojuegosIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/carbon_game-console.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon peliculasIcono= new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+        
+        Menu(sidebar, "Inicio", 80, inicioIcono);
+        Menu(sidebar, "Operación", 150, operacionesIcono);
+        Menu(sidebar, "Clientes", 260, clientesIcono);
+        Menu(sidebar, "Videojuegos", 370, videojuegosIcono);
+        Menu(sidebar, "Peliculas", 480, peliculasIcono);
 
         // PANEL PRINCIPAL
 
@@ -101,7 +131,64 @@ public class peliculas extends JFrame {
         JButton btnFiltrar = new JButton("Filtrar");
         btnFiltrar.setBounds(660, 15, 100, 30);
         searchPanel.add(btnFiltrar);
-
+        
+        ImageIcon img1 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/811xdZfsUqL.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        
+        ImageIcon img2 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/71w58zkWnfL.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img3 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/61MZdcVwQFL.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img4 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/20504502.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img5 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/71MZBMmOXtL._AC_UF894,1000_QL80_.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+                        
+                        
+        );
+        
+        ImageIcon img6 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        
+        ImageIcon img7 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img8 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img9 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img10 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+                        
+                        
+        );
         // TABLA 
 
         String[] columnas = {
@@ -109,15 +196,28 @@ public class peliculas extends JFrame {
         };
 
         Object[][] datos = {
-                {"", "Spider-Man 2", "JUE-00064", "Videojuego", "PS5", "Ver info"},
-                {"", "Zelda", "JUE-0024", "Videojuego", "Switch", "Ver info"},
-                {"", "COD", "JUE-00034", "Videojuego", "PS5", "Ver info"},
-                {"", "Forza", "JUE-00084", "Videojuego", "Xbox", "Ver info"},
-                {"", "Resident Evil", "JUE-00087", "Videojuego", "PS5", "Ver info"}
+                {img1, "Avengers Infinity War", "PEL-00017", img6, "Blue-Ray", "Ver info"},
+                {img2, "Chainsaw Man - La película: Arco de Reze", "PEL-10024", img6, "Blue-Ray", "Ver info"},
+                {img3, "Rocky", "PEL-03085", img6, "Blue-Ray", "Ver info"},
+                {img4, "Sherk 2", "PEL-00547", img6, "Blue-Ray", "Ver info"},
+                {img5, "Dragon Ball Super Broly", "PEL-00723", img6, "Blue-Ray", "Ver info"}
         };
 
-        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                if(column == 0|| column ==3 ) {
+                    return Icon.class;
+                }
+
+                return super.getColumnClass(column);
+            }
+        };
+
         JTable tabla = new JTable(modelo);
+        tabla.setRowHeight(70);
 
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
         tabla.setRowSorter(sorter);
@@ -161,12 +261,15 @@ public class peliculas extends JFrame {
 
     // MENU
 
-    public void Menu(JPanel panel, String texto, int y) {
+    public void Menu(JPanel panel, String texto, int y, Icon icono) {
+
+        JLabel iconLabel = new JLabel(icono);
+        iconLabel.setBounds(15, y, 25, 30);
 
         JLabel label = new JLabel(texto);
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("Inter", Font.PLAIN, 15));
-        label.setBounds(35, y, 120, 30);
+        label.setFont(new Font("Arial", Font.PLAIN, 15));
+        label.setBounds(50, y, 120, 30);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         label.addMouseListener(new MouseAdapter() {
@@ -192,9 +295,10 @@ public class peliculas extends JFrame {
                     case "Operación":
                         ventana = new operaciones();
                         break;
-                        
-                    
-                        
+
+                    case "Peliculas":
+                        ventana = new peliculas();
+                        break;
                 }
 
                 if (ventana != null) {
@@ -204,6 +308,7 @@ public class peliculas extends JFrame {
             }
         });
 
+        panel.add(iconLabel);
         panel.add(label);
     }
 

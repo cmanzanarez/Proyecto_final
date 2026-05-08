@@ -22,11 +22,42 @@ public class videojuegos extends JFrame {
         sidebar.setLayout(null);
         add(sidebar);
 
-        Menu(sidebar, "Inicio", 80);
-        Menu(sidebar, "Operación", 150);
-        Menu(sidebar, "Clientes", 260);
-        Menu(sidebar, "Videojuegos", 370);
-        Menu(sidebar, "Películas", 480);
+        ImageIcon inicioIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon operacionesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon clientesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/material-symbols_person.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon videojuegosIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/carbon_game-console.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon peliculasIcono= new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+        
+        Menu(sidebar, "Inicio", 80, inicioIcono);
+        Menu(sidebar, "Operación", 150, operacionesIcono);
+        Menu(sidebar, "Clientes", 260, clientesIcono);
+        Menu(sidebar, "Videojuegos", 370, videojuegosIcono);
+        Menu(sidebar, "Peliculas", 480, peliculasIcono);
+
 
         // PANEL PRINCIPAL
 
@@ -101,6 +132,33 @@ public class videojuegos extends JFrame {
         JButton btnFiltrar = new JButton("Filtrar");
         btnFiltrar.setBounds(660, 15, 100, 30);
         searchPanel.add(btnFiltrar);
+        
+        ImageIcon img1 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/EGS_Octopus_InsomniacGamesNixxesSoftware_S1_2560x1440-f27da78f484626718d1e22e7d6950ca5.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        
+        ImageIcon img2 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/The_Legend_of_Zelda_Tears_of_the_Kingdom_cover.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img3 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/call_of_duty_black_ops_6-5892217.webp"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img4 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/forza_horizon_6-6006996.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
+        ImageIcon img5 = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/resident.jpg"))
+                        .getImage()
+                        .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
+        );
 
         // TABLA 
 
@@ -109,14 +167,26 @@ public class videojuegos extends JFrame {
         };
 
         Object[][] datos = {
-                {"", "Spider-Man 2", "JUE-00064", "Videojuego", "PS5", "Ver info"},
-                {"", "Zelda", "JUE-0024", "Videojuego", "Switch", "Ver info"},
-                {"", "COD", "JUE-00034", "Videojuego", "PS5", "Ver info"},
-                {"", "Forza", "JUE-00084", "Videojuego", "Xbox", "Ver info"},
-                {"", "Resident Evil", "JUE-00087", "Videojuego", "PS5", "Ver info"}
+                { img1, "Spider-Man 2", "JUE-00064", "Videojuego", "PS5", "Ver info"},
+                { img2, "Zelda", "JUE-0024", "Videojuego", "Switch", "Ver info"},
+                { img3, "COD", "JUE-00034", "Videojuego", "PS5", "Ver info"},
+                { img4, "Forza", "JUE-00084", "Videojuego", "Xbox", "Ver info"},
+                { img5, "Resident Evil", "JUE-00087", "Videojuego", "PS5", "Ver info"}
         };
 
-        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                if (column == 0) {
+                    return Icon.class;
+                }
+
+                return String.class;
+            }
+        };
+
         JTable tabla = new JTable(modelo);
 
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
@@ -161,12 +231,15 @@ public class videojuegos extends JFrame {
 
     // MENU
 
-    public void Menu(JPanel panel, String texto, int y) {
+    public void Menu(JPanel panel, String texto, int y, Icon icono) {
+
+        JLabel iconLabel = new JLabel(icono);
+        iconLabel.setBounds(15, y, 25, 30);
 
         JLabel label = new JLabel(texto);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Arial", Font.PLAIN, 15));
-        label.setBounds(35, y, 120, 30);
+        label.setBounds(50, y, 120, 30);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         label.addMouseListener(new MouseAdapter() {
@@ -181,7 +254,7 @@ public class videojuegos extends JFrame {
                         ventana = new principal();
                         break;
 
-                    case "videojuegos":
+                    case "Videojuegos":
                         ventana = new videojuegos();
                         break;
 
@@ -192,7 +265,7 @@ public class videojuegos extends JFrame {
                     case "Operación":
                         ventana = new operaciones();
                         break;
-                        
+
                     case "Peliculas":
                         ventana = new peliculas();
                         break;
@@ -205,6 +278,7 @@ public class videojuegos extends JFrame {
             }
         });
 
+        panel.add(iconLabel);
         panel.add(label);
     }
 

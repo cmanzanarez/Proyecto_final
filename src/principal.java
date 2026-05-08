@@ -14,16 +14,45 @@ public class principal extends JFrame {
 
         // BARRA AZUL
         JPanel barraLat = new JPanel();
-        barraLat.setBackground(new Color(10, 50, 90));
+        barraLat.setBackground(new Color(0, 51, 102));
         barraLat.setBounds(0, 0, 120, 600);
         barraLat.setLayout(null);
+        ImageIcon inicioIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
 
-        // MENÚ 
-        Menu(barraLat, "Inicio", 80);
-        Menu(barraLat, "Operación", 150);
-        Menu(barraLat, "Clientes", 220);
-        Menu(barraLat, "Videojuegos", 290);
-        Menu(barraLat, "Peliculas", 360);
+        ImageIcon operacionesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon clientesIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/material-symbols_person.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon videojuegosIcono = new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/carbon_game-console.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+
+        ImageIcon peliculasIcono= new ImageIcon(
+                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
+                        .getImage()
+                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
+        );
+        
+        Menu(barraLat, "Inicio", 80, inicioIcono);
+        Menu(barraLat, "Operación", 150, operacionesIcono);
+        Menu(barraLat, "Clientes", 260, clientesIcono);
+        Menu(barraLat, "Videojuegos", 370, videojuegosIcono);
+        Menu(barraLat, "Peliculas", 480, peliculasIcono);
+
 
         // HEADER
         JPanel header = new JPanel() {
@@ -99,12 +128,15 @@ public class principal extends JFrame {
     }
 
     // MENU
-    public void Menu(JPanel panel, String texto, int y) {
+    public void Menu(JPanel panel, String texto, int y, Icon icono) {
+
+        JLabel iconLabel = new JLabel(icono);
+        iconLabel.setBounds(15, y, 25, 30);
 
         JLabel label = new JLabel(texto);
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("Inter", Font.PLAIN, 15));
-        label.setBounds(25, y, 120, 30);
+        label.setFont(new Font("Arial", Font.PLAIN, 15));
+        label.setBounds(50, y, 120, 30);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         label.addMouseListener(new MouseAdapter() {
@@ -143,6 +175,7 @@ public class principal extends JFrame {
             }
         });
 
+        panel.add(iconLabel);
         panel.add(label);
     }
 
@@ -192,7 +225,7 @@ public class principal extends JFrame {
                 g2.setColor(new Color(210, 210, 210));
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 35, 35);
             }
-        };
+        }; 
 
         panel.setOpaque(false);
         panel.setLayout(null);
@@ -251,5 +284,37 @@ public class principal extends JFrame {
         panel.add(boton2);
 
         return panel;
+    }
+    public ImageIcon ImagenCircular(String ruta, int tamaño) {
+
+        ImageIcon icon = new ImageIcon(getClass().getResource(ruta));
+
+        Image imagen = icon.getImage().getScaledInstance(
+                tamaño,
+                tamaño,
+                Image.SCALE_SMOOTH
+        );
+
+        java.awt.image.BufferedImage buffered =
+                new java.awt.image.BufferedImage(
+                        tamaño,
+                        tamaño,
+                        java.awt.image.BufferedImage.TYPE_INT_ARGB
+                );
+
+        Graphics2D g2 = buffered.createGraphics();
+
+        g2.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        g2.setClip(new java.awt.geom.Ellipse2D.Float(0, 0, tamaño, tamaño));
+
+        g2.drawImage(imagen, 0, 0, null);
+
+        g2.dispose();
+
+        return new ImageIcon(buffered);
     }
 }
