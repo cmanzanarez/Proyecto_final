@@ -51,7 +51,7 @@ public class InfoCliente extends JFrame {
         mainPanel.add(btnAtras);
 
         JLabel lblTituloSuperior = new JLabel("Información de cliente", SwingConstants.CENTER);
-        lblTituloSuperior.setFont(new Font("Inter", Font.BOLD, 20));
+        lblTituloSuperior.setFont(new Font("Arial", Font.BOLD, 20));
         lblTituloSuperior.setBounds(160, 20, 520, 30);
         mainPanel.add(lblTituloSuperior);
 
@@ -64,7 +64,6 @@ public class InfoCliente extends JFrame {
         marcoFoto.setBounds(360, 85, 120, 130);
         marcoFoto.setBackground(Color.DARK_GRAY); 
         marcoFoto.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-       
         mainPanel.add(marcoFoto);
 
         // TARJETA BLANCA CENTRAL
@@ -80,7 +79,7 @@ public class InfoCliente extends JFrame {
         card.add(lblNombreLabel);
 
         JLabel lblNombreValor = new JLabel("Tobias Martinez", SwingConstants.CENTER);
-        lblNombreValor.setFont(new Font("Inter", Font.BOLD, 14));
+        lblNombreValor.setFont(new Font("Arial", Font.BOLD, 14));
         lblNombreValor.setBounds(0, 35, 780, 20);
         card.add(lblNombreValor);
 
@@ -94,7 +93,7 @@ public class InfoCliente extends JFrame {
         lblFid.setBounds(50, 140, 180, 20);
         card.add(lblFid);
         JLabel lblFidV = new JLabel("VIP", SwingConstants.CENTER);
-        lblFidV.setFont(new Font("Inter", Font.BOLD, 13));
+        lblFidV.setFont(new Font("Arial", Font.BOLD, 13));
         lblFidV.setBounds(50, 165, 180, 20);
         card.add(lblFidV);
 
@@ -102,11 +101,11 @@ public class InfoCliente extends JFrame {
         lblEmail.setBounds(300, 140, 200, 20);
         card.add(lblEmail);
         JLabel lblEmailV = new JLabel("ejemplo@gmail.com", SwingConstants.CENTER);
-        lblEmailV.setFont(new Font("Inter", Font.BOLD, 13));
+        lblEmailV.setFont(new Font("Arial", Font.BOLD, 13));
         lblEmailV.setBounds(300, 165, 200, 20);
         card.add(lblEmailV);
 
-        // BOTONES DE HISTORIAL 
+        // BOTONES DE HISTORIAL (CORREGIDOS)
         JButton btnHistoVentas = new JButton("Historial de ventas");
         btnHistoVentas.setBounds(50, 210, 180, 35);
         btnHistoVentas.setBackground(new Color(45, 62, 80));
@@ -121,12 +120,11 @@ public class InfoCliente extends JFrame {
         btnHistoRentas.setBounds(550, 210, 180, 35);
         btnHistoRentas.setBackground(new Color(45, 62, 80));
         btnHistoRentas.setForeground(Color.WHITE);
-        card.add(btnHistoRentas);
-        btnHistoVentas.addActionListener(e -> {
+        btnHistoRentas.addActionListener(e -> {
             new HistorialRentas(); 
             dispose();
         });
-        card.add(btnHistoVentas);
+        card.add(btnHistoRentas);
 
         // BOTONES DE DESCARGA PDF
         JButton btnDescargar = new JButton("Descargar Ficha de cliente [PDF]");
@@ -146,19 +144,11 @@ public class InfoCliente extends JFrame {
         btnEditar.setBounds(340, 610, 160, 35);
         btnEditar.setBackground(new Color(0, 170, 255));
         btnEditar.setForeground(Color.WHITE);
-        
-        btnEditar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                validarEdicion();
-            }
-        });
-        
+        btnEditar.addActionListener(e -> validarEdicion());
         mainPanel.add(btnEditar);
 
         setVisible(true);
     }
-    	
 
     private void validarEdicion() {
         String id = txtId.getText().trim();
@@ -166,25 +156,14 @@ public class InfoCliente extends JFrame {
         String tel = txtTelefono.getText().trim();
 
         if (id.isEmpty() || fecha.isEmpty() || tel.isEmpty()) {
-            JOptionPane.showMessageDialog(this, 
-                "Error: Todos los campos deben estar llenos.", 
-                "Error de Validación", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: Todos los campos deben estar llenos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         if (!id.matches("\\d+")) {
-            JOptionPane.showMessageDialog(this, 
-                "Error: El ID del cliente debe ser numérico.", 
-                "Error de Formato", 
-                JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: El ID del cliente debe ser numérico.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        JOptionPane.showMessageDialog(this, 
-            "¡Cliente editado con éxito!", 
-            "Operación Exitosa", 
-            JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "¡Cliente editado con éxito!", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private JTextField CampoEditable(JPanel panel, String titulo, String valor, int x, int y, int w) {
@@ -230,7 +209,6 @@ public class InfoCliente extends JFrame {
                     case "Clientes": ventana = new clientes(); break;
                     case "Operación": ventana = new operaciones(); break;
                     case "Peliculas": ventana = new peliculas(); break;
-                    
                 }
                 if (ventana != null) {
                     ventana.setVisible(true);
@@ -238,7 +216,6 @@ public class InfoCliente extends JFrame {
                 }
             }
         });
-
         panel.add(iconLabel);
         panel.add(label);
     }

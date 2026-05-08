@@ -8,7 +8,7 @@ public class AñadirOperacion extends JFrame {
     private JRadioButton rbRenta, rbVenta;
 
     public AñadirOperacion() {
-        setTitle("Operación");
+        setTitle("Añadir Operación");
         setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,11 +21,11 @@ public class AñadirOperacion extends JFrame {
         barraLat.setLayout(null);
         add(barraLat);
 
-        Menu(barraLat, "Inicio", 80, crearIcono("/img/inicio.png"));
-        Menu(barraLat, "Operación", 150, crearIcono("/img/operacion.png"));
-        Menu(barraLat, "Clientes", 260, crearIcono("/img/clientes.png"));
-        Menu(barraLat, "Videojuegos", 370, crearIcono("/img/juegos.png"));
-        Menu(barraLat, "Peliculas", 480, crearIcono("/img/peliculas.png"));
+        Menu(barraLat, "Inicio", 80, crearIcono("/img/gravity-ui_house-fill.png"));
+        Menu(barraLat, "Operación", 150, crearIcono("/img/ic_baseline-plus.png"));
+        Menu(barraLat, "Clientes", 260, crearIcono("/img/material-symbols_person.png"));
+        Menu(barraLat, "Videojuegos", 370, crearIcono("/img/carbon_game-console.png"));
+        Menu(barraLat, "Peliculas", 480, crearIcono("/img/fluent_movies-and-tv-16-filled.png"));
 
         // PANEL PRINCIPAL
         JPanel mainPanel = new JPanel();
@@ -43,12 +43,12 @@ public class AñadirOperacion extends JFrame {
         });
         mainPanel.add(btnAtras);
 
-        JLabel lblTitulo = new JLabel("Operación", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Inter", Font.BOLD, 22));
+        JLabel lblTitulo = new JLabel("Generar Operación", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 22));
         lblTitulo.setBounds(200, 20, 440, 30);
         mainPanel.add(lblTitulo);
 
-        // FORMULARIO IZQUIERDA (Ajuste de espaciado y márgenes)
+        // FORMULARIO IZQUIERDA
         crearLabel(mainPanel, "Nombre del cliente:", 30, 70);
         txtNombreCli = crearField(mainPanel, "Adrián Celis Olavarría", 30, 95, 300);
 
@@ -77,24 +77,24 @@ public class AñadirOperacion extends JFrame {
         crearLabel(mainPanel, "Fecha de devolución:", 30, 445);
         txtFechaDev = crearField(mainPanel, "No aplica", 30, 470, 200);
 
-        // PRODUCTO (DERECHA - Ajuste de altura de imagen para subir elementos inferiores)
+        // PRODUCTO
         JLabel lblProdTit = new JLabel("Producto:", SwingConstants.CENTER);
         lblProdTit.setFont(new Font("Arial", Font.BOLD, 14));
         lblProdTit.setBounds(550, 70, 250, 20);
         mainPanel.add(lblProdTit);
 
         JPanel panelImg = new JPanel(new BorderLayout());
-        panelImg.setBounds(550, 95, 250, 270); // Altura reducida de 300 a 270
+        panelImg.setBounds(550, 95, 250, 270); 
         panelImg.setBackground(Color.DARK_GRAY);
         mainPanel.add(panelImg);
 
         crearLabel(mainPanel, "Nombre del producto:", 550, 380);
-        txtNomProd = crearField(mainPanel, "Chainsaw Man - La película: Arco de Reze", 550, 405, 250);
+        txtNomProd = crearField(mainPanel, "Chainsaw Man - La película", 550, 405, 250);
 
         crearLabel(mainPanel, "ID del producto:", 550, 445);
         txtIdProd = crearField(mainPanel, "PEL-10024", 550, 470, 200);
 
-        // FILA INFERIOR (Subida de posición)
+        // FILA INFERIOR 
         crearLabel(mainPanel, "Monto pagado:", 30, 515);
         txtMonto = crearField(mainPanel, "$ 250.00", 30, 540, 150);
 
@@ -107,7 +107,7 @@ public class AñadirOperacion extends JFrame {
         crearLabel(mainPanel, "Plataforma:", 600, 515);
         txtPlataforma = crearField(mainPanel, "Blu-Ray", 600, 540, 150);
 
-        // BOTONES ACCIÓN (Subidos de 640 a 600 aprox)
+        // BOTONES ACCIÓN 
         JButton btnDescargar = new JButton("Descargar Ficha PDF");
         btnDescargar.setBounds(550, 590, 200, 35);
         btnDescargar.setBackground(new Color(0, 170, 255));
@@ -115,8 +115,9 @@ public class AñadirOperacion extends JFrame {
         btnDescargar.addActionListener(e -> JOptionPane.showMessageDialog(this, "Descargando ficha...", "Éxito", JOptionPane.INFORMATION_MESSAGE));
         mainPanel.add(btnDescargar);
 
-        JButton btnGuardar = new JButton("Editar operación");
-        btnGuardar.setBounds(320, 600, 200, 40); // Posición Y más arriba
+        // AQUÍ ESTABA EL ERROR DEL BOTÓN
+        JButton btnGuardar = new JButton("Guardar Operación");
+        btnGuardar.setBounds(320, 600, 200, 40); 
         btnGuardar.setBackground(Color.BLACK);
         btnGuardar.setForeground(Color.WHITE);
         btnGuardar.addActionListener(e -> validarYGuardar());
@@ -129,7 +130,7 @@ public class AñadirOperacion extends JFrame {
         if (txtNombreCli.getText().trim().isEmpty() || txtIdOp.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Error: Existen campos obligatorios vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Operación actualizada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Operación guardada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             new principal();
             dispose();
         }

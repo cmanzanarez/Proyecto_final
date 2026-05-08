@@ -21,11 +21,18 @@ public class HistorialVentas extends JFrame {
         sidebar.setLayout(null);
         add(sidebar);
 
-        Menu(sidebar, "Inicio", 80, null);
-        Menu(sidebar, "Operación", 150, null);
-        Menu(sidebar, "Clientes", 260, null);
-        Menu(sidebar, "Videojuegos", 370, null);
-        Menu(sidebar, "Peliculas", 480, null);
+        // Carga de iconos (CORREGIDO)
+        ImageIcon inicioIcono = crearIcono("/img/gravity-ui_house-fill.png");
+        ImageIcon operacionesIcono = crearIcono("/img/ic_baseline-plus.png");
+        ImageIcon clientesIcono = crearIcono("/img/material-symbols_person.png");
+        ImageIcon videojuegosIcono = crearIcono("/img/carbon_game-console.png");
+        ImageIcon peliculasIcono = crearIcono("/img/fluent_movies-and-tv-16-filled.png");
+
+        Menu(sidebar, "Inicio", 80, inicioIcono);
+        Menu(sidebar, "Operación", 150, operacionesIcono);
+        Menu(sidebar, "Clientes", 260, clientesIcono);
+        Menu(sidebar, "Videojuegos", 370, videojuegosIcono);
+        Menu(sidebar, "Peliculas", 480, peliculasIcono);
 
         // PANEL PRINCIPAL
         JPanel mainPanel = new JPanel();
@@ -44,7 +51,7 @@ public class HistorialVentas extends JFrame {
         mainPanel.add(btnAtras);
 
         JLabel lblTitulo = new JLabel("Historial de ventas del cliente", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Inter", Font.BOLD, 20));
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
         lblTitulo.setBounds(160, 20, 520, 30);
         mainPanel.add(lblTitulo);
 
@@ -67,15 +74,14 @@ public class HistorialVentas extends JFrame {
 
         JTable tabla = new JTable(modelo);
         tabla.setRowHeight(60);
-        tabla.setFont(new Font("Inter", Font.PLAIN, 13));
+        tabla.setFont(new Font("Arial", Font.PLAIN, 13));
         tabla.setGridColor(new Color(200, 200, 200));
         tabla.setShowVerticalLines(true);
         tabla.setShowHorizontalLines(true);
 
-    
         JTableHeader header = tabla.getTableHeader();
         header.setPreferredSize(new Dimension(100, 50));
-        header.setFont(new Font("Inter", Font.BOLD, 14));
+        header.setFont(new Font("Arial", Font.BOLD, 14));
         header.setBackground(new Color(230, 230, 230));
 
         JScrollPane scroll = new JScrollPane(tabla);
@@ -87,8 +93,17 @@ public class HistorialVentas extends JFrame {
         setVisible(true);
     }
 
-    public void Menu(JPanel panel, String texto, int y, Icon icono) {
+    // MÉTODO PARA CARGAR ICONOS (AGREGADO)
+    private ImageIcon crearIcono(String ruta) {
+        try {
+            return new ImageIcon(new ImageIcon(getClass().getResource(ruta))
+                    .getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        } catch (Exception e) {
+            return null; 
+        }
+    }
 
+    public void Menu(JPanel panel, String texto, int y, Icon icono) {
         JLabel iconLabel = new JLabel(icono);
         iconLabel.setBounds(15, y, 25, 30);
 
@@ -99,34 +114,15 @@ public class HistorialVentas extends JFrame {
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         label.addMouseListener(new MouseAdapter() {
-
             public void mouseClicked(MouseEvent e) {
-
                 JFrame ventana = null;
-
                 switch (texto) {
-
-                    case "Inicio":
-                        ventana = new principal();
-                        break;
-
-                    case "Videojuegos":
-                        ventana = new videojuegos();
-                        break;
-
-                    case "Clientes":
-                        ventana = new clientes();
-                        break;
-
-                    case "Operación":
-                        ventana = new operaciones();
-                        break;
-
-                    case "Peliculas":
-                        ventana = new peliculas();
-                        break;
+                    case "Inicio": ventana = new principal(); break;
+                    case "Videojuegos": ventana = new videojuegos(); break;
+                    case "Clientes": ventana = new clientes(); break;
+                    case "Operación": ventana = new operaciones(); break;
+                    case "Peliculas": ventana = new peliculas(); break;
                 }
-
                 if (ventana != null) {
                     ventana.setVisible(true);
                     dispose();

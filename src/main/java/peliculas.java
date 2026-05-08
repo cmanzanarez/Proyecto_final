@@ -66,10 +66,6 @@ public class peliculas extends JFrame {
         mainPanel.setLayout(null);
         add(mainPanel);
 
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.setBounds(20, 20, 100, 30);
-        mainPanel.add(btnAtras);
-
         JButton btnAgregar = new JButton("+ Añadir una película");
         btnAgregar.setBounds(590, 20, 220, 35);
         btnAgregar.setBackground(new Color(0, 170, 255));
@@ -78,6 +74,7 @@ public class peliculas extends JFrame {
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 new AñadirPelicula().setVisible(true);
+                dispose();
             }
         });
 

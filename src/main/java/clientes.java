@@ -11,46 +11,23 @@ public class clientes extends JFrame {
         setTitle("Clientes");
         setSize(1000, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false); 
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // PANEL LATERAL
-
+        // PANEL LATERAL (160px)
         JPanel sidebar = new JPanel();
         sidebar.setBounds(0, 0, 160, 650);
         sidebar.setBackground(new Color(0, 51, 102));
         sidebar.setLayout(null);
         add(sidebar);
 
-        ImageIcon inicioIcono = new ImageIcon(
-                new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
-                        .getImage()
-                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
-        );
-
-        ImageIcon operacionesIcono = new ImageIcon(
-                new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png"))
-                        .getImage()
-                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
-        );
-
-        ImageIcon clientesIcono = new ImageIcon(
-                new ImageIcon(getClass().getResource("/img/material-symbols_person.png"))
-                        .getImage()
-                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
-        );
-
-        ImageIcon videojuegosIcono = new ImageIcon(
-                new ImageIcon(getClass().getResource("/img/carbon_game-console.png"))
-                        .getImage()
-                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
-        );
-
-        ImageIcon peliculasIcono= new ImageIcon(
-                new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
-                        .getImage()
-                        .getScaledInstance(25, 25, Image.SCALE_SMOOTH)
-        );
+        // Carga de iconos para el menú
+        ImageIcon inicioIcono = new ImageIcon(new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        ImageIcon operacionesIcono = new ImageIcon(new ImageIcon(getClass().getResource("/img/ic_baseline-plus.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        ImageIcon clientesIcono = new ImageIcon(new ImageIcon(getClass().getResource("/img/material-symbols_person.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        ImageIcon videojuegosIcono = new ImageIcon(new ImageIcon(getClass().getResource("/img/carbon_game-console.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        ImageIcon peliculasIcono = new ImageIcon(new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         
         Menu(sidebar, "Inicio", 80, inicioIcono);
         Menu(sidebar, "Operación", 150, operacionesIcono);
@@ -59,37 +36,29 @@ public class clientes extends JFrame {
         Menu(sidebar, "Peliculas", 480, peliculasIcono);
 
         // PANEL PRINCIPAL
-
         JPanel mainPanel = new JPanel();
         mainPanel.setBounds(160, 0, 840, 650);
         mainPanel.setBackground(new Color(245, 245, 245));
         mainPanel.setLayout(null);
         add(mainPanel);
 
-        JButton btnAtras = new JButton("Atrás");
-        btnAtras.setBounds(20, 20, 100, 30);
-        mainPanel.add(btnAtras);
-
+        // BOTONES SUPERIORES
         JButton btnAgregar = new JButton("+ Añadir cliente");
         btnAgregar.setBounds(600, 20, 210, 35);
         btnAgregar.setBackground(new Color(0, 170, 255));
         btnAgregar.setForeground(Color.WHITE);
-        mainPanel.add(btnAgregar);
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                new AñadirClientes().setVisible(true);
-            }
+        btnAgregar.addActionListener(e -> {
+            new AñadirClientes().setVisible(true);
+            dispose(); 
         });
-
-        // TITULO
+        mainPanel.add(btnAgregar);
 
         JLabel titulo = new JLabel("Clientes");
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         titulo.setBounds(340, 20, 200, 30);
         mainPanel.add(titulo);
 
-        // BARRA DE BUSQUEDA
-
+        // BARRA DE BÚSQUEDA
         JPanel searchPanel = new JPanel();
         searchPanel.setBounds(20, 80, 790, 60);
         searchPanel.setLayout(null);
@@ -101,50 +70,11 @@ public class clientes extends JFrame {
         lupa.setBounds(15, 15, 60, 30);
         searchPanel.add(lupa);
 
-        // TEXTFIELD
-
         JTextField buscador = new JTextField();
         buscador.setBounds(80, 15, 470, 30);
         buscador.setBackground(Color.WHITE);
-        buscador.setOpaque(true);
-
-        buscador.setBorder(
-                BorderFactory.createCompoundBorder(
-                        new RoundedBorder(15),
-                        BorderFactory.createEmptyBorder(5, 10, 5, 10)
-                )
-        );
-
-        // EFECTO VISUAL AL ESCRIBIR
-
-        buscador.addFocusListener(new FocusAdapter() {
-
-            @Override
-            public void focusGained(FocusEvent e) {
-                buscador.setBackground(new Color(235, 245, 255));
-                buscador.setBorder(
-                        BorderFactory.createCompoundBorder(
-                                new LineBorder(new Color(0, 170, 255), 2, true),
-                                BorderFactory.createEmptyBorder(5, 10, 5, 10)
-                        )
-                );
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                buscador.setBackground(Color.WHITE);
-                buscador.setBorder(
-                        BorderFactory.createCompoundBorder(
-                                new RoundedBorder(15),
-                                BorderFactory.createEmptyBorder(5, 10, 5, 10)
-                        )
-                );
-            }
-        });
-
+        buscador.setBorder(BorderFactory.createCompoundBorder(new RoundedBorder(15), BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         searchPanel.add(buscador);
-
-        // BOTON BUSCAR
 
         JButton btnBuscar = new JButton("Buscar");
         btnBuscar.setBounds(540, 15, 110, 30);
@@ -154,18 +84,8 @@ public class clientes extends JFrame {
         btnFiltrar.setBounds(660, 15, 100, 30);
         searchPanel.add(btnFiltrar);
 
-        // TABLA
-
-        String[] columnas = {
-                "",
-                "Cliente",
-                "Id cliente",
-                "Rentas activas",
-                "Ultima compra",
-                "Ultima renta",
-                "Info"
-        };
-
+        // TABLA CON TUS DATOS ORIGINALES
+        String[] columnas = {"", "Cliente", "Id cliente", "Rentas activas", "Ultima compra", "Ultima renta", "Info"};
         Object[][] datos = {
                 {false, "Mateo Valeriano Soler", "482915", "3", "08/07/2025", "19/03/2026", "Ver info"},
                 {false, "Lucía Fernanda Mondragón", "730642", "5", "02/02/2026", "23/05/2026", "Ver info"},
@@ -175,132 +95,46 @@ public class clientes extends JFrame {
         };
 
         DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
-
             @Override
-            public Class<?> getColumnClass(int column) {
-
-                if(column == 0) {
-                    return Boolean.class;
-                }
-
-                return String.class;
-            }
-
+            public Class<?> getColumnClass(int column) { return (column == 0) ? Boolean.class : String.class; }
             @Override
-            public boolean isCellEditable(int row, int column) {
-
-                return column == 0;
-            }
+            public boolean isCellEditable(int row, int column) { return column == 0; }
         };
 
         JTable tabla = new JTable(modelo);
-
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
-        tabla.setRowSorter(sorter);
-
-        // TABLA CUADRADA
-
-        tabla.setShowHorizontalLines(true);
-        tabla.setShowVerticalLines(true);
-        tabla.setGridColor(new Color(180, 180, 180));
-        tabla.setIntercellSpacing(new Dimension(0, 0));
-
         tabla.setRowHeight(55);
         tabla.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JTableHeader header = tabla.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 14));
-        header.setBackground(Color.WHITE);
-        header.setBorder(
-                BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY)
-        );
-
-        tabla.getColumnModel().getColumn(0).setPreferredWidth(30);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
+        tabla.setRowSorter(sorter);
 
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.setBounds(20, 170, 790, 350);
         scroll.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180)));
         mainPanel.add(scroll);
 
+        // BOTÓN ELIMINAR
         JButton btnEliminar = new JButton("Eliminar cliente");
         btnEliminar.setBounds(320, 540, 200, 35);
         btnEliminar.setBackground(new Color(255, 87, 34));
         btnEliminar.setForeground(Color.WHITE);
         mainPanel.add(btnEliminar);
 
-        // BUSQUEDA FUNCIONAL
-
+        // LÓGICA DE BÚSQUEDA
         btnBuscar.addActionListener(e -> {
             String texto = buscador.getText().trim();
-
-            if (texto.isEmpty()) {
-                sorter.setRowFilter(null);
-            } else {
-                sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
-            }
+            if (texto.isEmpty()) sorter.setRowFilter(null);
+            else sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
         });
-        
-        //ELLIMINAR FILAS
+
+        // LÓGICA DE ELIMINACIÓN
         btnEliminar.addActionListener(e -> {
-
-            JPanel panel = new JPanel();
-            panel.setBackground(new Color(220, 220, 220));
-            panel.setLayout(new BorderLayout());
-
-            JLabel mensaje = new JLabel("¿Está seguro de borrar?", SwingConstants.CENTER);
-            mensaje.setFont(new Font("Arial", Font.PLAIN, 16));
-            mensaje.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-            panel.add(mensaje, BorderLayout.CENTER);
-
-            UIManager.put("OptionPane.background", new Color(220, 220, 220));
-            UIManager.put("Panel.background", new Color(220, 220, 220));
-
-            int opcion = JOptionPane.showConfirmDialog(
-                    null,
-                    panel,
-                    "Confirmación",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.PLAIN_MESSAGE
-            );
-
-            if(opcion == JOptionPane.YES_OPTION) {
-
-                boolean eliminado = false;
-
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro de borrar los clientes seleccionados?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
                 for (int i = tabla.getRowCount() - 1; i >= 0; i--) {
-
                     Boolean seleccionado = (Boolean) tabla.getValueAt(i, 0);
-
                     if (seleccionado != null && seleccionado) {
-
                         modelo.removeRow(tabla.convertRowIndexToModel(i));
-                        eliminado = true;
                     }
-                }
-
-                if(eliminado) {
-
-                    JPanel panelExito = new JPanel();
-                    panelExito.setBackground(new Color(220, 220, 220));
-                    panelExito.setLayout(new BorderLayout());
-
-                    JLabel mensajeExito = new JLabel(
-                            "Los elementos se han eliminado con éxito",
-                            SwingConstants.CENTER
-                    );
-
-                    mensajeExito.setFont(new Font("Arial", Font.PLAIN, 16));
-                    mensajeExito.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-                    panelExito.add(mensajeExito, BorderLayout.CENTER);
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            panelExito,
-                            "Éxito",
-                            JOptionPane.PLAIN_MESSAGE
-                    );
                 }
             }
         });
@@ -308,83 +142,38 @@ public class clientes extends JFrame {
         setVisible(true);
     }
 
-    // MENUS
-
     public void Menu(JPanel panel, String texto, int y, Icon icono) {
-
         JLabel iconLabel = new JLabel(icono);
         iconLabel.setBounds(15, y, 25, 30);
-
         JLabel label = new JLabel(texto);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Arial", Font.PLAIN, 15));
         label.setBounds(50, y, 120, 30);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
         label.addMouseListener(new MouseAdapter() {
-
             public void mouseClicked(MouseEvent e) {
-
                 JFrame ventana = null;
-
                 switch (texto) {
-
-                    case "Inicio":
-                        ventana = new principal();
-                        break;
-
-                    case "Videojuegos":
-                        ventana = new videojuegos();
-                        break;
-
-                    case "Clientes":
-                        ventana = new clientes();
-                        break;
-
-                    case "Operación":
-                        ventana = new operaciones();
-                        break;
-
-                    case "Peliculas":
-                        ventana = new peliculas();
-                        break;
+                    case "Inicio": ventana = new principal(); break;
+                    case "Videojuegos": ventana = new videojuegos(); break;
+                    case "Clientes": ventana = new clientes(); break;
+                    case "Operación": ventana = new operaciones(); break;
+                    case "Peliculas": ventana = new peliculas(); break;
                 }
-
-                if (ventana != null) {
-                    ventana.setVisible(true);
-                    dispose();
-                }
+                if (ventana != null) { ventana.setVisible(true); dispose(); }
             }
         });
-
         panel.add(iconLabel);
         panel.add(label);
     }
 
-    // BORDE
-
     class RoundedBorder implements Border {
-
         int r;
-
-        RoundedBorder(int r) {
-            this.r = r;
-        }
-
-        public Insets getBorderInsets(Component c) {
-            return new Insets(r, r, r, r);
-        }
-
-        public boolean isBorderOpaque() {
-            return false;
-        }
-
-        public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
-            g.drawRoundRect(x, y, w - 1, h - 1, r, r);
-        }
+        RoundedBorder(int r) { this.r = r; }
+        public Insets getBorderInsets(Component c) { return new Insets(r, r, r, r); }
+        public boolean isBorderOpaque() { return false; }
+        public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) { g.drawRoundRect(x, y, w - 1, h - 1, r, r); }
     }
 
-    public static void main(String[] args) {
-        new clientes();
-    }
+    public static void main(String[] args) { new clientes(); }
 }

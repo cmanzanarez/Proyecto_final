@@ -12,10 +12,10 @@ public class principal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        // BARRA AZUL
+        // BARRA AZUL LATERAL
         JPanel barraLat = new JPanel();
         barraLat.setBackground(new Color(0, 51, 102));
-        barraLat.setBounds(0, 0, 120, 600);
+        barraLat.setBounds(0, 0, 160, 600);
         barraLat.setLayout(null);
         
         ImageIcon inicioIcono = new ImageIcon(
@@ -55,7 +55,7 @@ public class principal extends JFrame {
         Menu(barraLat, "Peliculas", 480, peliculasIcono);
 
 
-        // HEADER
+        // HEADER GRIS SUPERIOR
         JPanel header = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -67,22 +67,24 @@ public class principal extends JFrame {
         };
 
         header.setOpaque(false);
-        header.setBounds(130, 10, 850, 100);
+        header.setBounds(170, 10, 800, 100); 
         header.setLayout(null);
 
         // LOGO 
         ImageIcon logo = new ImageIcon(principal.class.getResource("/img/logo0.png"));
         Image img = logo.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         JLabel logoLabel = new JLabel(new ImageIcon(img));
-        logoLabel.setBounds(20, 10, 80, 80);
+        logoLabel.setBounds(30, 10, 80, 80); 
 
-        JLabel user = new JLabel("Bienvenido Usuario");
-        user.setFont(new Font("Inter", Font.BOLD, 16));
-        user.setBounds(420, 35, 200, 30);
+        // TÍTULO
+        JLabel user = new JLabel("Bienvenido Usuario", SwingConstants.CENTER); 
+        user.setFont(new Font("Inter", Font.BOLD, 18)); 
+        user.setBounds(0, 35, 800, 30); 
 
+        // BOTON SALIR 
         JButton logoutBtn = new JButton("Salir");
         logoutBtn.setFont(new Font("Inter", Font.PLAIN, 14));
-        logoutBtn.setBounds(700, 35, 90, 30);
+        logoutBtn.setBounds(680, 35, 90, 30);
         logoutBtn.setBackground(new Color(220, 50, 50));
         logoutBtn.setForeground(Color.WHITE);
 
@@ -207,6 +209,16 @@ public class principal extends JFrame {
         JButton btn = new JButton("Ver");
         btn.setFont(new Font("Inter", Font.PLAIN, 13));
         btn.setBounds(70, 95, 80, 30);
+        
+        btn.addActionListener(e -> {
+            if (titulo.equals("Clientes")) {
+                new clientes().setVisible(true); 
+                dispose();
+            } else if (titulo.equals("Rentas y Ventas")) {
+                new operaciones().setVisible(true); 
+                dispose();
+            }
+        });
 
         panel.add(titulo1);
         panel.add(numero1);
@@ -286,5 +298,8 @@ public class principal extends JFrame {
 
         return panel;
     }
-  
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new principal());
     }
+}
