@@ -149,12 +149,22 @@ public class clientes extends JFrame {
                 "Info"
         };
 
-        Object[][] datos = {
-                {"Mateo Valeriano Soler", "482915", "3", "08/07/2025", "19/03/2026", "Ver info"},
-                {"Lucía Fernanda Mondragón", "730642", "5", "02/02/2026", "23/05/2026", "Ver info"},
-                {"Adrián Celis Olavarría", "105422", "2", "20/01/2026", "23/03/2026", "Ver info"},
-                {"Elena Beatriz Iturbide", "195873", "1", "08/07/2025", "23/03/2026", "Ver info"},
-                {"Javier Amador Vizcaíno", "627104", "2", "08/11/2025", "24/03/2026", "Ver info"}
+         Object[][] datos = {
+            {"Mateo Valeriano Soler", "482915", "3", "08/07/2025", "19/03/2026", "Ver info"},
+            {"Lucía Fernanda Mondragón", "730642", "5", "02/02/2026", "23/05/2026", "Ver info"},
+            {"Adrián Celis Olavarría", "105422", "2", "20/01/2026", "23/03/2026", "Ver info"},
+            {"Elena Beatriz Iturbide", "195873", "1", "08/07/2025", "23/03/2026", "Ver info"},
+            {"Javier Amador Vizcaíno", "627104", "2", "08/11/2025", "24/03/2026", "Ver info"},
+            {"Camila Torres Navarro", "841209", "4", "14/02/2026", "28/04/2026", "Ver info"},
+            {"Diego Ramírez Salcedo", "392184", "1", "10/10/2025", "18/03/2026", "Ver info"},
+            {"Valentina Cruz Mendoza", "574821", "6", "01/01/2026", "05/05/2026", "Ver info"},
+            {"Sebastián Ortega Ruiz", "663710", "2", "09/09/2025", "11/04/2026", "Ver info"},
+            {"Fernanda López Carrillo", "118450", "3", "15/12/2025", "29/03/2026", "Ver info"},
+            {"Andrés Velasco Pineda", "904221", "1", "22/08/2025", "17/02/2026", "Ver info"},
+            {"Mariana Esquivel Soto", "776530", "5", "05/03/2026", "01/05/2026", "Ver info"},
+            {"Ricardo Núñez Beltrán", "341908", "2", "30/11/2025", "08/04/2026", "Ver info"},
+            {"Paula Jiménez Robledo", "590127", "4", "19/01/2026", "30/04/2026", "Ver info"},
+            {"Emilio Castro Villaseñor", "812664", "3", "27/02/2026", "06/05/2026", "Ver info"}
         };
 
         DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
