@@ -11,7 +11,7 @@ public class registro {
         frame.setSize(900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // ===== FUENTES =====
+        // Fuentes
         Font inter = new Font("Inter", Font.PLAIN, 14);
         Font interBold = new Font("Inter", Font.BOLD, 14);
 

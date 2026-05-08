@@ -17,6 +17,7 @@ public class principal extends JFrame {
         barraLat.setBackground(new Color(0, 51, 102));
         barraLat.setBounds(0, 0, 120, 600);
         barraLat.setLayout(null);
+        
         ImageIcon inicioIcono = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/gravity-ui_house-fill.png"))
                         .getImage()
@@ -135,7 +136,7 @@ public class principal extends JFrame {
 
         JLabel label = new JLabel(texto);
         label.setForeground(Color.WHITE);
-        label.setFont(new Font("Arial", Font.PLAIN, 15));
+        label.setFont(new Font("Inter", Font.PLAIN, 15));
         label.setBounds(50, y, 120, 30);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -285,36 +286,5 @@ public class principal extends JFrame {
 
         return panel;
     }
-    public ImageIcon ImagenCircular(String ruta, int tamaño) {
-
-        ImageIcon icon = new ImageIcon(getClass().getResource(ruta));
-
-        Image imagen = icon.getImage().getScaledInstance(
-                tamaño,
-                tamaño,
-                Image.SCALE_SMOOTH
-        );
-
-        java.awt.image.BufferedImage buffered =
-                new java.awt.image.BufferedImage(
-                        tamaño,
-                        tamaño,
-                        java.awt.image.BufferedImage.TYPE_INT_ARGB
-                );
-
-        Graphics2D g2 = buffered.createGraphics();
-
-        g2.setRenderingHint(
-                RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON
-        );
-
-        g2.setClip(new java.awt.geom.Ellipse2D.Float(0, 0, tamaño, tamaño));
-
-        g2.drawImage(imagen, 0, 0, null);
-
-        g2.dispose();
-
-        return new ImageIcon(buffered);
+  
     }
-}

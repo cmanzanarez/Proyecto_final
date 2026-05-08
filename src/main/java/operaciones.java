@@ -1,4 +1,4 @@
-	import javax.swing.*;
+import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -59,14 +59,28 @@ public class operaciones extends JFrame {
         Menu(sidebar, "Videojuegos", 370, videojuegosIcono);
         Menu(sidebar, "Peliculas", 480, peliculasIcono);
 
-
         // PANEL PRINCIPAL
 
         JPanel mainPanel = new JPanel();
         mainPanel.setBounds(160, 0, 840, 650);
-        mainPanel.setBackground(new Color(245, 245, 245));
+        mainPanel.setBackground(new Color(255, 255, 255));
         mainPanel.setLayout(null);
         add(mainPanel);
+
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.setBounds(20, 20, 100, 30);
+        mainPanel.add(btnAtras);
+
+        JButton btnAgregar = new JButton("+ Añadir operación");
+        btnAgregar.setBounds(590, 20, 220, 35);
+        btnAgregar.setBackground(new Color(0, 170, 255));
+        btnAgregar.setForeground(Color.WHITE);
+        mainPanel.add(btnAgregar);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                new AñadirOperacion().setVisible(true);
+            }
+        });
 
         JLabel titulo = new JLabel("Operaciones");
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
@@ -142,23 +156,25 @@ public class operaciones extends JFrame {
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
+
         ImageIcon img3 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
+
         ImageIcon img4 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
+
         ImageIcon img5 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/fluent_movies-and-tv-16-filled.png"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
-                        
-                        
         );
+
         ImageIcon caratula1 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/forza_horizon_6-6006996.jpg"))
                         .getImage()
@@ -170,40 +186,43 @@ public class operaciones extends JFrame {
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
+
         ImageIcon caratula3 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/71w58zkWnfL.jpg"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
+
         ImageIcon caratula4 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/51gz5Gfjl8L._AC_UF894,1000_QL80_.jpg"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
         );
+
         ImageIcon caratula5 = new ImageIcon(
                 new ImageIcon(getClass().getResource("/img/71MZBMmOXtL._AC_UF894,1000_QL80_.jpg"))
                         .getImage()
                         .getScaledInstance(50, 50, Image.SCALE_SMOOTH)
-        		  );
-        
+        );
+
         // TABLA
 
-        	String[] columnas = {
-        		        "Cliente",
-        		        "Tipo",
-        		        "Producto",
-        		        "Tipo producto",
-        		        "Plataforma",
-        		        "Info"
-        	
+        String[] columnas = {
+                "",
+                "Cliente",
+                "Tipo",
+                "Producto",
+                "Tipo producto",
+                "Plataforma",
+                "Info"
         };
 
         Object[][] datos = {
-                {"Mateo Valeriano Soler", "Renta", caratula1, img1, "Xbox Series X", "Ver info"},
-                {"Lucía Fernanda Mondragón", "Venta", caratula2, img2, "PS5", "Ver info"},
-                {"Adrián Celis Olavarría", "Venta", caratula3, img3, "Blu-Ray", "Ver info"},
-                {"Elena Beatriz Iturbide", "Venta",caratula4, img4, "DVD", "Ver info"},
-                {"Javier Amador Vizcaíno", "Renta", caratula5, img5, "Blu-Ray", "Ver info"}
+                {false, "Mateo Valeriano Soler", "Renta", caratula1, img1, "Xbox Series X", "Ver info"},
+                {false, "Lucía Fernanda Mondragón", "Venta", caratula2, img2, "PS5", "Ver info"},
+                {false, "Adrián Celis Olavarría", "Venta", caratula3, img3, "Blu-Ray", "Ver info"},
+                {false, "Elena Beatriz Iturbide", "Venta", caratula4, img4, "DVD", "Ver info"},
+                {false, "Javier Amador Vizcaíno", "Renta", caratula5, img5, "Blu-Ray", "Ver info"}
         };
 
         DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
@@ -211,20 +230,150 @@ public class operaciones extends JFrame {
             @Override
             public Class<?> getColumnClass(int column) {
 
-                if(column == 2 || column == 3	) {
+                if(column == 0) {
+                    return Boolean.class;
+                }
+
+                if(column == 3 || column == 4) {
                     return Icon.class;
                 }
 
                 return super.getColumnClass(column);
             }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+
+                return column == 0;
+            }
         };
 
         JTable tabla = new JTable(modelo);
         tabla.setRowHeight(70);
+        
+        tabla.addMouseListener(new MouseAdapter() {
 
-        tabla.getColumnModel().getColumn(2).setPreferredWidth(120);
-        tabla.getColumnModel().getColumn(3).setPreferredWidth(90);
+            public void mouseClicked(MouseEvent e) {
 
+                if(e.getClickCount() == 2) {
+
+                    int filaVista = tabla.getSelectedRow();
+
+                    if(filaVista != -1) {
+
+                        final int fila = tabla.convertRowIndexToModel(filaVista);
+
+                        JDialog ventanaEditar = new JDialog();
+                        ventanaEditar.setTitle("Editar operación");
+                        ventanaEditar.setSize(450, 500);
+                        ventanaEditar.setLocationRelativeTo(null);
+                        ventanaEditar.setLayout(null);
+                        ventanaEditar.getContentPane().setBackground(new Color(245,245,245));
+
+                        JLabel lblCliente = new JLabel("Cliente:");
+                        lblCliente.setBounds(30, 30, 150, 25);
+                        ventanaEditar.add(lblCliente);
+
+                        JTextField txtCliente = new JTextField(
+                                modelo.getValueAt(fila, 1).toString()
+                        );
+                        txtCliente.setBounds(30, 55, 350, 35);
+                        ventanaEditar.add(txtCliente);
+
+                        JLabel lblTipo = new JLabel("Tipo:");
+                        lblTipo.setBounds(30, 105, 150, 25);
+                        ventanaEditar.add(lblTipo);
+
+                        JTextField txtTipo = new JTextField(
+                                modelo.getValueAt(fila, 2).toString()
+                        );
+                        txtTipo.setBounds(30, 130, 350, 35);
+                        ventanaEditar.add(txtTipo);
+
+                        JLabel lblPlataforma = new JLabel("Plataforma:");
+                        lblPlataforma.setBounds(30, 180, 150, 25);
+                        ventanaEditar.add(lblPlataforma);
+
+                        JTextField txtPlataforma = new JTextField(
+                                modelo.getValueAt(fila, 5).toString()
+                        );
+                        txtPlataforma.setBounds(30, 205, 350, 35);
+                        ventanaEditar.add(txtPlataforma);
+
+                        JButton btnGuardar = new JButton("Guardar cambios");
+                        btnGuardar.setBounds(110, 320, 200, 40);
+                        btnGuardar.setBackground(new Color(0,170,255));
+                        btnGuardar.setForeground(Color.WHITE);
+                        ventanaEditar.add(btnGuardar);
+
+                        btnGuardar.addActionListener(ev -> {
+
+                            String cliente = txtCliente.getText().trim();
+                            String tipo = txtTipo.getText().trim();
+                            String plataforma = txtPlataforma.getText().trim();
+
+                            if(cliente.isEmpty() ||
+                               tipo.isEmpty() ||
+                               plataforma.isEmpty()) {
+
+                                JPanel panelError = new JPanel();
+                                panelError.setBackground(new Color(220,220,220));
+
+                                JLabel mensajeError = new JLabel(
+                                        "Hay campos vacíos o incorrectos"
+                                );
+
+                                mensajeError.setFont(new Font("Arial", Font.PLAIN, 15));
+
+                                panelError.add(mensajeError);
+
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        panelError,
+                                        "Error",
+                                        JOptionPane.PLAIN_MESSAGE
+                                );
+
+                            } else {
+
+                                modelo.setValueAt(cliente, fila, 1);
+                                modelo.setValueAt(tipo, fila, 2);
+                                modelo.setValueAt(plataforma, fila, 5);
+
+                                JPanel panelExito = new JPanel();
+                                panelExito.setBackground(new Color(220,220,220));
+
+                                JLabel mensajeExito = new JLabel(
+                                        "La operación se ha editado con éxito"
+                                );
+
+                                mensajeExito.setFont(new Font("Arial", Font.PLAIN, 15));
+
+                                panelExito.add(mensajeExito);
+
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        panelExito,
+                                        "Éxito",
+                                        JOptionPane.PLAIN_MESSAGE
+                                );
+
+                                ventanaEditar.dispose();
+                            }
+                        });
+
+                        ventanaEditar.setVisible(true);
+                    }
+                }
+            }
+        });
+
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(120);
+        tabla.getColumnModel().getColumn(4).setPreferredWidth(90);
+        
+        
+        
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
         tabla.setRowSorter(sorter);
 
@@ -247,14 +396,83 @@ public class operaciones extends JFrame {
         scroll.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180)));
         mainPanel.add(scroll);
 
+        JButton btnEliminar = new JButton("Eliminar operación");
+        btnEliminar.setBounds(320, 540, 200, 35);
+        btnEliminar.setBackground(new Color(255, 87, 34));
+        btnEliminar.setForeground(Color.WHITE);
+        mainPanel.add(btnEliminar);
+
         btnBuscar.addActionListener(e -> {
             String texto = buscador.getText().trim();
 
             if (texto.isEmpty()) {
                 sorter.setRowFilter(null);
             } else {
-                //funciona para que cuando busques tanto mayusculas y minusculas no afecten
                 sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+            }
+        });
+
+        btnEliminar.addActionListener(e -> {
+
+            JPanel panel = new JPanel();
+            panel.setBackground(new Color(220, 220, 220));
+            panel.setLayout(new BorderLayout());
+
+            JLabel mensaje = new JLabel("¿Está seguro de borrar?", SwingConstants.CENTER);
+            mensaje.setFont(new Font("Arial", Font.PLAIN, 16));
+            mensaje.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            panel.add(mensaje, BorderLayout.CENTER);
+
+            UIManager.put("OptionPane.background", new Color(220, 220, 220));
+            UIManager.put("Panel.background", new Color(220, 220, 220));
+
+            int opcion = JOptionPane.showConfirmDialog(
+                    null,
+                    panel,
+                    "Confirmación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            if(opcion == JOptionPane.YES_OPTION) {
+
+                boolean eliminado = false;
+
+                for (int i = tabla.getRowCount() - 1; i >= 0; i--) {
+
+                    Boolean seleccionado = (Boolean) tabla.getValueAt(i, 0);
+
+                    if (seleccionado != null && seleccionado) {
+
+                        modelo.removeRow(tabla.convertRowIndexToModel(i));
+                        eliminado = true;
+                    }
+                }
+
+                if(eliminado) {
+
+                    JPanel panelExito = new JPanel();
+                    panelExito.setBackground(new Color(220, 220, 220));
+                    panelExito.setLayout(new BorderLayout());
+
+                    JLabel mensajeExito = new JLabel(
+                            "Los elementos se han eliminado con éxito",
+                            SwingConstants.CENTER
+                    );
+
+                    mensajeExito.setFont(new Font("Arial", Font.PLAIN, 16));
+                    mensajeExito.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+                    panelExito.add(mensajeExito, BorderLayout.CENTER);
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            panelExito,
+                            "Éxito",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                }
             }
         });
 
@@ -313,6 +531,7 @@ public class operaciones extends JFrame {
         panel.add(iconLabel);
         panel.add(label);
     }
+
     // BORDE
 
     class RoundedBorder implements Border {
@@ -372,4 +591,4 @@ public class operaciones extends JFrame {
     public static void main(String[] args) {
         new operaciones();
     }
-}	
+}

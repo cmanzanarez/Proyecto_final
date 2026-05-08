@@ -66,6 +66,21 @@ public class clientes extends JFrame {
         mainPanel.setLayout(null);
         add(mainPanel);
 
+        JButton btnAtras = new JButton("Atrás");
+        btnAtras.setBounds(20, 20, 100, 30);
+        mainPanel.add(btnAtras);
+
+        JButton btnAgregar = new JButton("+ Añadir cliente");
+        btnAgregar.setBounds(600, 20, 210, 35);
+        btnAgregar.setBackground(new Color(0, 170, 255));
+        btnAgregar.setForeground(Color.WHITE);
+        mainPanel.add(btnAgregar);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                new AñadirClientes().setVisible(true);
+            }
+        });
+
         // TITULO
 
         JLabel titulo = new JLabel("Clientes");
@@ -101,6 +116,7 @@ public class clientes extends JFrame {
         );
 
         // EFECTO VISUAL AL ESCRIBIR
+
         buscador.addFocusListener(new FocusAdapter() {
 
             @Override
@@ -141,6 +157,7 @@ public class clientes extends JFrame {
         // TABLA
 
         String[] columnas = {
+                "",
                 "Cliente",
                 "Id cliente",
                 "Rentas activas",
@@ -149,25 +166,33 @@ public class clientes extends JFrame {
                 "Info"
         };
 
-         Object[][] datos = {
-            {"Mateo Valeriano Soler", "482915", "3", "08/07/2025", "19/03/2026", "Ver info"},
-            {"Lucía Fernanda Mondragón", "730642", "5", "02/02/2026", "23/05/2026", "Ver info"},
-            {"Adrián Celis Olavarría", "105422", "2", "20/01/2026", "23/03/2026", "Ver info"},
-            {"Elena Beatriz Iturbide", "195873", "1", "08/07/2025", "23/03/2026", "Ver info"},
-            {"Javier Amador Vizcaíno", "627104", "2", "08/11/2025", "24/03/2026", "Ver info"},
-            {"Camila Torres Navarro", "841209", "4", "14/02/2026", "28/04/2026", "Ver info"},
-            {"Diego Ramírez Salcedo", "392184", "1", "10/10/2025", "18/03/2026", "Ver info"},
-            {"Valentina Cruz Mendoza", "574821", "6", "01/01/2026", "05/05/2026", "Ver info"},
-            {"Sebastián Ortega Ruiz", "663710", "2", "09/09/2025", "11/04/2026", "Ver info"},
-            {"Fernanda López Carrillo", "118450", "3", "15/12/2025", "29/03/2026", "Ver info"},
-            {"Andrés Velasco Pineda", "904221", "1", "22/08/2025", "17/02/2026", "Ver info"},
-            {"Mariana Esquivel Soto", "776530", "5", "05/03/2026", "01/05/2026", "Ver info"},
-            {"Ricardo Núñez Beltrán", "341908", "2", "30/11/2025", "08/04/2026", "Ver info"},
-            {"Paula Jiménez Robledo", "590127", "4", "19/01/2026", "30/04/2026", "Ver info"},
-            {"Emilio Castro Villaseñor", "812664", "3", "27/02/2026", "06/05/2026", "Ver info"}
+        Object[][] datos = {
+                {false, "Mateo Valeriano Soler", "482915", "3", "08/07/2025", "19/03/2026", "Ver info"},
+                {false, "Lucía Fernanda Mondragón", "730642", "5", "02/02/2026", "23/05/2026", "Ver info"},
+                {false, "Adrián Celis Olavarría", "105422", "2", "20/01/2026", "23/03/2026", "Ver info"},
+                {false, "Elena Beatriz Iturbide", "195873", "1", "08/07/2025", "23/03/2026", "Ver info"},
+                {false, "Javier Amador Vizcaíno", "627104", "2", "08/11/2025", "24/03/2026", "Ver info"}
         };
 
-        DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
+        DefaultTableModel modelo = new DefaultTableModel(datos, columnas) {
+
+            @Override
+            public Class<?> getColumnClass(int column) {
+
+                if(column == 0) {
+                    return Boolean.class;
+                }
+
+                return String.class;
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+
+                return column == 0;
+            }
+        };
+
         JTable tabla = new JTable(modelo);
 
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelo);
@@ -190,10 +215,18 @@ public class clientes extends JFrame {
                 BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY)
         );
 
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(30);
+
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.setBounds(20, 170, 790, 350);
         scroll.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180)));
         mainPanel.add(scroll);
+
+        JButton btnEliminar = new JButton("Eliminar cliente");
+        btnEliminar.setBounds(320, 540, 200, 35);
+        btnEliminar.setBackground(new Color(255, 87, 34));
+        btnEliminar.setForeground(Color.WHITE);
+        mainPanel.add(btnEliminar);
 
         // BUSQUEDA FUNCIONAL
 
@@ -204,6 +237,71 @@ public class clientes extends JFrame {
                 sorter.setRowFilter(null);
             } else {
                 sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
+            }
+        });
+        
+        //ELLIMINAR FILAS
+        btnEliminar.addActionListener(e -> {
+
+            JPanel panel = new JPanel();
+            panel.setBackground(new Color(220, 220, 220));
+            panel.setLayout(new BorderLayout());
+
+            JLabel mensaje = new JLabel("¿Está seguro de borrar?", SwingConstants.CENTER);
+            mensaje.setFont(new Font("Arial", Font.PLAIN, 16));
+            mensaje.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+            panel.add(mensaje, BorderLayout.CENTER);
+
+            UIManager.put("OptionPane.background", new Color(220, 220, 220));
+            UIManager.put("Panel.background", new Color(220, 220, 220));
+
+            int opcion = JOptionPane.showConfirmDialog(
+                    null,
+                    panel,
+                    "Confirmación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            if(opcion == JOptionPane.YES_OPTION) {
+
+                boolean eliminado = false;
+
+                for (int i = tabla.getRowCount() - 1; i >= 0; i--) {
+
+                    Boolean seleccionado = (Boolean) tabla.getValueAt(i, 0);
+
+                    if (seleccionado != null && seleccionado) {
+
+                        modelo.removeRow(tabla.convertRowIndexToModel(i));
+                        eliminado = true;
+                    }
+                }
+
+                if(eliminado) {
+
+                    JPanel panelExito = new JPanel();
+                    panelExito.setBackground(new Color(220, 220, 220));
+                    panelExito.setLayout(new BorderLayout());
+
+                    JLabel mensajeExito = new JLabel(
+                            "Los elementos se han eliminado con éxito",
+                            SwingConstants.CENTER
+                    );
+
+                    mensajeExito.setFont(new Font("Arial", Font.PLAIN, 16));
+                    mensajeExito.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+                    panelExito.add(mensajeExito, BorderLayout.CENTER);
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            panelExito,
+                            "Éxito",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                }
             }
         });
 
